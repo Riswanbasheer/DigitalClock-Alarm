@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manual Time Digital Clock — Blue & Orange</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #00274D, #FF6A00);
+      color: white;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 2em;
+      letter-spacing: 1px;
+    }
+
+    .clock {
+      font-size: 3.5em;
+      font-weight: bold;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 20px 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .controls {
+      margin-top: 25px;
+      display: flex;
+      gap: 10px;
+    }
+
+    input[type="number"] {
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      width: 70px;
+      text-align: center;
+      font-size: 1.1em;
+    }
+
+    button {
+      background-color: #FF6A00;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 15px;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #ff8c1a;
+    }
+
+    .note {
+      margin-top: 10px;
+      font-size: 0.9em;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <h1>Manual Digital Clock</h1>
+
+  <div class="clock" id="clock">00:00:00</div>
+
+  <div class="controls">
+    <input type="number" id="hourInput" min="0" max="23" placeholder="HH">
+    <input type="number" id="minuteInput" min="0" max="59" placeholder="MM">
+    <button onclick="setManualTime()">Set Time</button>
+  </div>
+
+  <div class="note">Enter time in 24-hour format</div>
+
+  <script>
+    let manualTime = null;
+
+    function updateClock() {
+      if (manualTime) {
+        manualTime.setSeconds(manualTime.getSeconds() + 1);
+      } else {
+        manualTime = new Date();
+      }
+
+      const hours = String(manualTime.getHours()).padStart(2, '0');
+      const minutes = String(manualTime.getMinutes()).padStart(2, '0');
+      const seconds = String(manualTime.getSeconds()).padStart(2, '0');
+
+      document.getElementById('clock').innerText = ${hours}:${minutes}:${seconds};
+    }
+
+    function setManualTime() {
+      const hour = parseInt(document.getElementById('hourInput').value);
+      const minute = parseInt(document.getElementById('minuteInput').value);
+
+      if (isNaN(hour) || isNaN(minute) || hour < 0 || hour > 23 || minute < 0 || minute > 59) {
+        alert('Please enter valid hour (0–23) and minute (0–59)');
+        return;
+      }
+
+      manualTime = new Date();
+      manualTime.setHours(hour);
+      manualTime.setMinutes(minute);
+      manualTime.setSeconds(0);
+
+      updateClock();
+    }
+
+    setInterval(updateClock, 1000);
+  </script>
+</body>
+</html>

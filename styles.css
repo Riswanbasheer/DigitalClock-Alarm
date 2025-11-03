@@ -1,0 +1,144 @@
+:root{
+  --bg-1:#071028;    /* deep navy */
+  --bg-2:#0b1630;    /* darker */
+  --glass: rgba(255,255,255,0.03);
+  --muted: #a6b0bf;
+  --blue: #08a0ff;   /* neon blue */
+  --orange:#ff7a29;  /* neon orange */
+  --card:#0f1b2b;
+  --radius:16px;
+  --fw-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:var(--fw-sans);color:#e9f1fb}
+body{
+  background: linear-gradient(180deg,var(--bg-1),var(--bg-2));
+  overflow:hidden;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* animated canvas fills behind */
+canvas#bg-canvas{
+  position:fixed; inset:0; z-index:0; width:100%; height:100%;
+}
+
+/* app shell */
+.app-wrap{
+  position:relative;
+  z-index:2;
+  max-width:980px;
+  margin:28px auto;
+  padding:18px;
+}
+
+/* top bar */
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  margin-bottom:14px;
+}
+
+.brand{display:flex;gap:12px;align-items:center}
+.logo{
+  width:56px;height:56px;border-radius:12px;
+  background: linear-gradient(135deg,var(--blue), #3ab8ff);
+  display:flex;align-items:center;justify-content:center;
+  color:#04202b; font-weight:700; font-size:20px;
+  box-shadow: 0 6px 24px rgba(8,160,255,0.15), inset 0 -3px 8px rgba(255,255,255,0.03);
+}
+.title{font-size:20px;font-weight:700;color:var(--blue)}
+.subtitle{font-size:12px;color:var(--muted);margin-top:2px}
+
+/* top pills */
+.top-actions{display:flex;gap:10px}
+.pill{
+  padding:8px 14px;border-radius:999px;border:none;
+  background:rgba(255,255,255,0.03); color:var(--muted);
+  font-weight:600; cursor:pointer;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.5);
+}
+.pill:hover{transform:translateY(-2px)}
+
+/* content layout */
+.content{display:grid;grid-template-columns:1fr;gap:14px;z-index:2;padding:6px}
+
+/* card look */
+.card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius:var(--radius);
+  padding:18px;
+  border:1px solid rgba(255,255,255,0.03);
+  box-shadow: 0 8px 30px rgba(4,8,18,0.6);
+}
+
+/* clock card */
+.clock-card{display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:20px}
+.clock{
+  font-weight:700;
+  font-size:48px;
+  color:var(--blue);
+  text-shadow: 0 6px 30px rgba(8,160,255,0.12), 0 0 14px rgba(8,160,255,0.07);
+}
+.zone{font-size:12px;color:var(--muted);margin-left:4px}
+
+/* controls */
+.controls-card .card-title{color:var(--blue);font-weight:700;margin:0 0 12px 0}
+.input-row{display:flex;gap:10px;align-items:end;padding-bottom:10px;flex-wrap:wrap}
+.seg{flex:1;min-width:98px}
+.seg.small{width:92px}
+.seg label{display:block;color:var(--muted);font-size:12px;margin-bottom:6px}
+select{
+  width:100%;padding:12px;border-radius:10px;background:var(--card);
+  border:1px solid rgba(255,255,255,0.03);color:#eaf6ff;font-weight:600;
+  appearance:none; font-size:16px;
+  box-shadow: inset 0 -6px 12px rgba(2,6,23,0.3);
+}
+
+/* button row */
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.btn{
+  border:none;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer;
+  box-shadow: 0 8px 22px rgba(2,6,23,0.45);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.btn:hover{transform:translateY(-3px)}
+.btn:active{transform:translateY(0)}
+
+.btn.primary{
+  background: linear-gradient(90deg,var(--blue), #3cc7ff);
+  color:#031522;
+}
+.btn.ghost{
+  background:transparent;color:var(--muted);
+  border:1px solid rgba(255,255,255,0.04);
+}
+.btn.accent{
+  background: linear-gradient(90deg,var(--orange), #ffa45a);
+  color:#09110b;
+}
+.btn.stop{
+  width:100%; margin-top:12px;
+  background:linear-gradient(90deg,#ff5a6b,#ff7a29);
+  color:white; font-weight:800;
+}
+
+/* status row */
+.status-row{display:flex;justify-content:space-between;align-items:center;margin-top:12px;color:var(--muted)}
+.next{font-weight:700;color:#eaf6ff}
+
+/* footer */
+.footer{margin-top:6px;color:var(--muted);text-align:center;font-size:12px}
+
+/* responsive layout for wider screens */
+@media(min-width:880px){
+  .content{grid-template-columns: 360px 1fr; align-items:start}
+  .clock-card{align-items:flex-end;padding:28px}
+  .clock{font-size:72px}
+}
+
+/* subtle focus */
+select:focus, .btn:focus, .pill:focus{outline:none; box-shadow: 0 8px 28px rgba(8,160,255,0.12)}
